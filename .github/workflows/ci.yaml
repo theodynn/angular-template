@@ -42,8 +42,10 @@ jobs:
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
-      - name: Run linting
-        run: npm lint
+      - name: Run linters
+            uses: wearerequired/lint-action@v2
+            with:
+              eslint: true
 
   test:
     runs-on: ubuntu-latest
