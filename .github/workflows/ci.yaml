@@ -63,21 +63,18 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  e2e-test:
-    timeout-minutes: 60
+  cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Install dependencies
         run: npm install --frozen-lockfile
-      - name: Run Cypress tests
-        run: npm run e2e
-      - uses: actions/upload-artifact@v3
-        if: always()
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v3
         with:
-          name: cypress-report
-          path: cypress-report/
-          retention-days: 30
+          build: npm run build
+          start: npm run start
+          browser: chrome
