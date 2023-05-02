@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ng-toolkit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -29,6 +32,9 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ng-toolkit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -42,13 +48,14 @@ jobs:
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
-      - name: Run linters
-          uses: wearerequired/lint-action@v3
-          with:
-            eslint: true
+      - name: Run linting
+        run: npm lint
 
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ng-toolkit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -67,6 +74,9 @@ jobs:
 
   cypress-run:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ng-toolkit
     steps:
       - name: Checkout
         uses: actions/checkout@v3
